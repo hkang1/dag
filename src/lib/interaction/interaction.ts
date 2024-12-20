@@ -22,6 +22,7 @@ class Interaction {
     for (const entry of entries) {
       if (entry.target === this.#elBase) {
         this.#layout.resize();
+        this.#layout.update();
         this.#layout.render();
       }
     }

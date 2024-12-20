@@ -1,5 +1,6 @@
 import { Config } from './config';
 import { Configuration } from './config/config.types';
+import { RecursivePartial } from './dag.types';
 import { Data, Node } from './data';
 import { Interaction } from './interaction';
 import { Layout } from './layout';
@@ -10,7 +11,7 @@ class DAG {
   #layout: Layout;
   #interaction: Interaction;
 
-  constructor (elBase: HTMLElement, nodes: Node[], config: Configuration = {}) {
+  constructor (elBase: HTMLElement, nodes: Node[], config: RecursivePartial<Configuration> = {}) {
     this.#config = new Config(config);
     this.#data = new Data(nodes);
     this.#layout = new Layout(elBase, this.#data, this.#config);
@@ -19,6 +20,10 @@ class DAG {
 
   public render() {
     this.#layout.render();
+  }
+
+  public update() {
+    this.#layout.update();
   }
 }
 

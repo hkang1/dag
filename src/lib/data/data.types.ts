@@ -7,6 +7,7 @@ export interface Node {
 
   depth: number;
   links?: Node['key'][];
+  maxPathLength?: number;
 }
 
 export type Path = Node['key'][];

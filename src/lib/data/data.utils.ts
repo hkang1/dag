@@ -1,9 +1,5 @@
 import { Node, Path } from './data.types';
 
-export function comparePath(a: Path, b: Path): number {
-  return b.length - a.length;
-}
-
 export function getPaths(node: Node, map: Record<Node['key'], Node>): Path[] {
   const paths: Path[] = [];
 
@@ -18,4 +14,23 @@ export function getPaths(node: Node, map: Record<Node['key'], Node>): Path[] {
   }
 
   return paths;
+}
+
+export function getOrder(length: number): number[] {
+  const start = Math.floor(length / 2);
+  const order = [];
+  let toggle = 1;
+  for (let i = 0; i < length; i++) {
+    if (i === 0) {
+      order.push(start);
+    } else {
+      order.push(start + toggle);
+      if (toggle > 0) {
+        toggle *= -1;
+      } else {
+        toggle = (-1 * toggle) + 1;
+      }
+    }
+  }
+  return order;
 }

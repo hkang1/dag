@@ -1,3 +1,5 @@
+import { Coord } from '../dag.types';
+
 import { CSSProperties } from './layout.types';
 
 export function addElement<E extends HTMLElement>(
@@ -55,10 +57,24 @@ export function camelToKebab(text: string): string {
         .join('');
 }
 
+export function getArrowKey(coord0: Coord, coord1: Coord): string {
+  return `${getCoordKey(coord0)}:${getCoordKey(coord1)}`;
+}
+
 export function getClassName(...args: unknown[]): string {
   return args.reduce((acc: string, arg) => {
     return !arg ? acc : [acc, Array.isArray(arg) ? arg.join(' ') : String(arg)].join(' ');
   }, '');
+}
+
+export function getContext(canvas: HTMLCanvasElement): CanvasRenderingContext2D {
+  const ctx = canvas.getContext('2d');
+  if (!ctx) throw new Error('Unable to get canvas context!');
+  return ctx;
+}
+
+export function getCoordKey(coord: Coord): string {
+  return `${coord.x}-${coord.y}`;
 }
 
 export function getElement(target: string | HTMLElement): HTMLElement | null {
@@ -107,4 +123,8 @@ export function setElementStyle(target: string | HTMLElement, style?: CSSPropert
 
     element.style.setProperty(camelToKebab(key), stringValue);
   }
+}
+
+export function sharp(px: number): number {
+  return Math.round(px - 0.5) + 0.5;
 }
